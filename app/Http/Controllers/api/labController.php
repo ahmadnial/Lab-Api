@@ -15,9 +15,10 @@ class labController extends Controller
     public function index()
     {
             try {
-                $listAll = DB::select("select b.fs_mr, c.FS_NM_PASIEN, a.FS_KD_REG, a.fd_tgl_jam_trs from TA_TRS_BILLING a
+                $dateNow = date('Y-m-d');
+                $listAll = DB::select("select b.fs_mr, c.FS_NM_PASIEN, a.FS_KD_REG, a.FS_KD_TRS, a.fd_tgl_jam_trs from TA_TRS_BILLING a
                 left join TA_REGISTRASI b on a.FS_KD_REG = b.FS_KD_REG
-                left join tc_mr c on b.FS_MR = c.FS_MR where a.FS_KD_LAYANAN='PEN03' and a.FD_TGL_TRS='2022-06-01'");
+                left join tc_mr c on b.FS_MR = c.FS_MR where a.FS_KD_LAYANAN='PEN03' and a.FD_TGL_TRS='$dateNow'");
                 return response()->json($listAll, Response::HTTP_OK);
             } catch (QueryException $e) {
                 $error = [
